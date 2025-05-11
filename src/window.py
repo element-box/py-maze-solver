@@ -42,3 +42,24 @@ class Line:
     
     def draw(self, canvas: Canvas, fill_color: str = "black") -> None:
         canvas.create_line(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill=fill_color, width=2)
+
+
+class Cell:
+    def __init__(self):
+        self.has_left_wall = True
+        self.has_right_wall = True
+        self.has_top_wall = True
+        self.has_bottom_wall = True
+        self._x1 = 0
+        self._x2 = 0
+        self._y1 = 0
+        self._y2 = 0
+
+    def draw(self, canvas: Canvas, x1, y1, x2, y2) -> None:
+        if self.has_left_wall:
+            canvas.create_line(x1, y1)
+        if self.has_right_wall:
+
+        if self.has_top_wall:
+
+        if self.has_bottom_wall:
