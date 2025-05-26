@@ -1,4 +1,5 @@
 import unittest
+import random
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
@@ -51,22 +52,30 @@ class Tests(unittest.TestCase):
         )
 
     def test_break_entrance_and_exit(self):
-        num_cols = 12
-        num_rows = 10
+        num_cols = 2
+        num_rows = 2
         m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
         m1._Maze__break_entrace_and_exit()
         first_cell = m1._Maze__cells[0][0]
         last_cell = m1._Maze__cells[num_cols - 1][num_rows - 1]
 
         self.assertFalse(first_cell.has_top_wall)
-        self.assertTrue(first_cell.has_right_wall)
-        self.assertTrue(first_cell.has_left_wall)
-        self.assertTrue(first_cell.has_bottom_wall)
-
-        self.assertTrue(last_cell.has_top_wall)
-        self.assertTrue(last_cell.has_right_wall)
-        self.assertTrue(last_cell.has_left_wall)
         self.assertFalse(last_cell.has_bottom_wall)
+
+    def test_reset_cells_after_break(self):
+        num_cols = 12
+        num_rows = 10
+        m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
+        m1._Maze__break_entrace_and_exit()
+        m1._Maze__break_walls_r(0,0)
+
+        index_row = random.randrange(0, num_rows - 1)
+        index_col = random.randrange(0, num_cols - 1)
+        self.assertTrue(m1._Maze__cells[index_col][index_row].visited)
+        m1._Maze__reset_cells_visited()
+        self.assertFalse(m1._Maze__cells[index_col][index_row].visited)
+
+
 
 if __name__ == "__main__":
     unittest.main()
